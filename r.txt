@@ -1,0 +1,32 @@
+
+Scenario: Should be able to read a existing blog
+Given I am on the blogs page
+When I clicked on "Show" link within "tr#blog_0"
+And I should see "India"
+Then I should see "India is a country"
+
+Scenario: Should be able to update a existing blog
+Given I am on the blogs page
+When I clicked on "Edit" link within "tr#blog_0"
+And I fill in "blog_name" with "Bangladesh"
+And I fill in "blog_description" with "Bangladesh is a small country when compared to India"
+When I press "Update Blog"
+Then I should see "Blog was successfully updated."
+
+Scenario: Should be able to delete a blog
+Given I am on the blogs page
+When I clicked on "Destroy" link within "tr#blog_0"
+And I confirm popup
+Then I should see "Blog was successfully deleted."
+
+
+Feature: Get book by ISBN
+  Scenario: User calls web service to get a book by its ISBN
+	Given set GET api endpoint as "http://localhost:8080/Categorys" 
+	When a user retrieves the categories
+	Then the status code is 200
+	And response includes the following
+	| totalItems 	 		| 2					|
+	| kind					| books#volumes			|
+   And response includes the following in any order
+	| id 					| 10001	|
